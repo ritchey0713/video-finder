@@ -20,7 +20,8 @@ class App extends React.Component {
       }
     })
     this.setState({
-      videos: resp.data.items
+      videos: resp.data.items,
+      selectedVideo: resp.data.items[0]
     })
   }
 
@@ -30,13 +31,25 @@ class App extends React.Component {
     })
   }
 
+  componentDidMount(){
+    this.onSearchSubmit("Game Leap")
+  }
+
   render(){
     return (
       <div className="App ui container">
         video finder
         <SearchBar onSearchSubmit={this.onSearchSubmit} />
-        <VideoDetail video={this.state.selectedVideo} />
-        <VideoList videos={this.state.videos} onVideoSelect={this.onVideoSelect} />
+        <div className="ui grid">
+          <div className="ui row">
+            <div className="eleven wide column">
+              <VideoDetail video={this.state.selectedVideo} />
+            </div>
+            <div className="five wide column">
+              <VideoList videos={this.state.videos} onVideoSelect={this.onVideoSelect} />
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
